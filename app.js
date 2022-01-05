@@ -30,7 +30,9 @@ const connection = mysql.createConnection({
   password: '1ddf6c63',
   database: 'heroku_38cdc152decb720'
 });
-
+setInterval(function () {
+  db.query('SELECT 1');
+}, 5000);
 // Route
 app.get('/', (req, res) => {
   res.send('Welcome to my API!');
@@ -271,7 +273,6 @@ connection.connect(error => {
 //app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 app.set('port', (process.env.PORT || 5000));
-
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
