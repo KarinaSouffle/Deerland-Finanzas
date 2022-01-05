@@ -141,7 +141,7 @@ app.post('/solicitud-nomina/agregar', (req, res) => {
   };
 //Objeto con los datos a añadir a la BD
   const SolicitudNomObj = {
-    ID_A: 1,
+    ID_A: 4,
     NumNomina: NominaObj.IDNomina,
     Total_Horas_T: NominaObj.HorasE,
     Total_Sueldo_B: NominaObj.SalarioBase,
@@ -223,7 +223,7 @@ app.post('/solicitud-recursos/agregar', (req, res) => {
   };
 //Objeto con los datos a añadir a la BD
   const SolicitudRecObj = {
-    ID_A: 2,
+    ID_A: 14,
     Cantidad_A: RecursosObj.CArticulo,
     Subtotal: RecursosObj.Subtotal,
     IVA: RecursosObj.IVA,
