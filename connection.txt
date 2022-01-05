@@ -1,0 +1,6 @@
+
+User: b195ebf0384247
+
+Password: 1ddf6c63
+
+Host: us-cdbr-east-05.cleardb.net

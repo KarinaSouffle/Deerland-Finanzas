@@ -25,10 +25,10 @@ app.use(bodyParser.json());
 
 // MySql
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '1234',
-  database: 'gestionrecursosfinancieros'
+  host: 'us-cdbr-east-05.cleardb.net',
+  user: 'b195ebf0384247',
+  password: '1ddf6c63',
+  database: 'heroku_38cdc152decb720'
 });
 
 // Route
