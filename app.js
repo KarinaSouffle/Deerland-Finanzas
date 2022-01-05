@@ -30,9 +30,7 @@ const connection = mysql.createConnection({
   password: '1ddf6c63',
   database: 'heroku_38cdc152decb720'
 });
-setInterval(function () {
-  db.query('SELECT 1');
-}, 5000);
+
 // Route
 app.get('/', (req, res) => {
   res.send('Welcome to my API!');
