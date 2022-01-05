@@ -11,10 +11,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "mysql": "^2.18.1",
     "nodemon": "^2.0.15"
   },
   "dependencies": {
-    "mysql": "^2.18.1",
     "express": "^4.17.2",
     "body-parser": "^1.19.0"
   }
