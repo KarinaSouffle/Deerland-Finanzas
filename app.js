@@ -38,6 +38,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to my API!');
 });
 
+
 //                                         -----Areas Deerland-----
 // Desplegar todos los registros de areas
 app.get('/areasdeerland', (req, res) => {
