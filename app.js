@@ -60,7 +60,8 @@ app.get('/areasdeerland', (req, res) => {
 //Desplegar un registro en especifico
 app.get('/areasdeerland/:ID_A', (req, res) => {
   const { ID_A } = req.params;
-  const sql = `SELECT * FROM areasdeerland WHERE ID_A = ${ID_A}`;
+  if(!isNaN(ID_A)){
+    const sql = `SELECT * FROM areasdeerland WHERE ID_A = ${ID_A}`;
   connection.query(sql, (error, result) => {
     if (error) throw error;
 
@@ -70,6 +71,11 @@ app.get('/areasdeerland/:ID_A', (req, res) => {
       res.send('No se encuentran resultados');
     }
   });
+    
+  }else{
+    res.json('Error, valores no validos.');
+  }
+  
 });
 //Desplegar ultimo registro
 app.get('/areasdeerland/ultimo', (req, res) => {
@@ -250,8 +256,9 @@ app.get('/solicitud-nomina', (req, res) => {
 //Desplegar un registro en especifico
 app.get('/solicitud-nomina/:ID_Solicitud_N', (req, res) => {
   const { ID_Solicitud_N } = req.params;
-  const sql = `SELECT * FROM solicitudnomina WHERE ID_Solicitud_N = ${ID_Solicitud_N}`;
-  connection.query(sql, (error, result) => {
+  if(!isNaN(ID_Solicitud_N)){
+    const sql = `SELECT * FROM solicitudnomina WHERE ID_Solicitud_N = ${ID_Solicitud_N}`;
+    connection.query(sql, (error, result) => {
     if (error) throw error;
 
     if (result.length > 0) {
@@ -259,7 +266,11 @@ app.get('/solicitud-nomina/:ID_Solicitud_N', (req, res) => {
     } else {
       res.send('No se encuentran resultados');
     }
-  });
+    });
+  }else{
+    res.json('Error, valores no validos.');
+  }
+  
 });
 
 //Editar Solicitud
@@ -411,9 +422,9 @@ app.get('/solicitud-recursos', (req, res) => {
 //Desplegar un registro en especifico
 app.get('/solicitud-recursos/:ID_Solicitud_R', (req, res) => {
   const { ID_Solicitud_R } = req.params;
-  if(ID_Solicitud_R < 0) throw error;
-  const sql = `SELECT * FROM solicitudrecursos WHERE ID_Solicitud_R = ${ID_Solicitud_R}`;
-  connection.query(sql, (error, result) => {
+  if(!isNaN(ID_Solicitud_R)){
+    const sql = `SELECT * FROM solicitudrecursos WHERE ID_Solicitud_R = ${ID_Solicitud_R}`;
+    connection.query(sql, (error, result) => {
     if (error) throw error;
 
     if (result.length > 0) {
@@ -421,7 +432,11 @@ app.get('/solicitud-recursos/:ID_Solicitud_R', (req, res) => {
     } else {
       res.send('No se encuentran resultados');
     }
-  });
+    });
+  }else{
+    res.json('Error, valores no validos.');
+  }
+  
 });
 
 //Editar Solicitud
