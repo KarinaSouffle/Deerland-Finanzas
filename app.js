@@ -1,3 +1,7 @@
+/**
+ * @apiName Api-Finanzas
+ * */
+
 const express = require('express');
 const mysql = require('mysql');
 
@@ -126,33 +130,39 @@ app.delete('/areasdeerland/eliminar/:ID_A', (req, res) => {
 });
 
 //                                         -----Solicitud de Nomina-----
-// Desplegar todos los registros de areas
-app.get('/solicitud-nomina', (req, res) => {
-  const sql = 'SELECT * FROM solicitudnomina';
-
-  connection.query(sql, (error, results) => {
-    if (error) throw error;
-    if (results.length > 0) {
-      res.json(results);
-    } else {
-      res.send('No hay resultado');
-    }
-  });
-});
-//Desplegar un registro en especifico
-app.get('/solicitud-nomina/:ID_Solicitud_N', (req, res) => {
-  const { ID_Solicitud_N } = req.params;
-  const sql = `SELECT * FROM solicitudnomina WHERE ID_Solicitud_N = ${ID_Solicitud_N}`;
-  connection.query(sql, (error, result) => {
-    if (error) throw error;
-
-    if (result.length > 0) {
-      res.json(result);
-    } else {
-      res.send('No se encuentran resultados');
-    }
-  });
-});
+/**
+ * @api {post} https://deerland-finanzas.herokuapp.com/solicitud-nomina/agregar Registro de Solicitudes de Nomina
+ * @apiName PostSolicitudNomina
+ * @apiGroup Empleados
+ * 
+ * @apiParam {Number} IDNomina Id de la Nomina
+ * @apiParam {Date} FechaPago Fecha del pago de la Nomina
+ * @apiParam {Number} SalarioBase Salario base de los empleados
+ * @apiParam {Number} HorasE Horas extras trabajadas por los empleados
+ * @apiParam {Number} SalarioT Salario total.
+ * 
+ * @apiParamExample Ejemplo:
+ * {
+ *  "IDNomina" : 18,
+ *  "FechaPago" : "2022-02-02",
+ *  "SalarioBase" : 2000,
+ *  "HorasE" : 20,
+ *  "SalarioT" : 20
+ * }
+ * 
+ * @apiSucessExample Solicitud exitosa:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          status: "Solicitud enviada correctamente."
+ *      }
+ * @apiError Error al registrar una solicitud
+ *
+ * @apiErrorExample Error:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       mensaje:"No hay resultado"
+ *     }
+ */
 //Añadir registro
 app.post('/solicitud-nomina/agregar', (req, res) => {
   const sql = 'INSERT INTO solicitudnomina SET ?';
@@ -183,11 +193,72 @@ app.post('/solicitud-nomina/agregar', (req, res) => {
     connection.query(sql2, (error, results) => {
     if (error) throw error;
     if (results.length > 0) {
+      res.json('Solicitud enviada correctamente. '+results);
+    } else {
+      res.send('No hay resultado');
+    }
+  });
+  });
+});
+// Desplegar todos los registros de areas
+app.get('/solicitud-nomina', (req, res) => {
+  const sql = 'SELECT * FROM solicitudnomina';
+
+  connection.query(sql, (error, results) => {
+    if (error) throw error;
+    if (results.length > 0) {
       res.json(results);
     } else {
       res.send('No hay resultado');
     }
   });
+});
+/**
+ * @api {get} https://deerland-finanzas.herokuapp.com/solicitud-nomina/:ID_Solicitud_N Información sobre el estado una solicitud
+ * @apiName GetEstadoDeSolicitudNomina
+ * @apiGroup Empleados
+ * 
+ * @apiSuccess {Number} ID_Solicitud_N Id de la Solicitud
+ * @apiSuccess {Number} ID_A ID del area deerland
+ * @apiSuccess {String} NumNomina Numero de nomina
+ * @apiSuccess {Number} Total_Horas_T Total de horas trabajadas
+ * @apiSuccess {Number} Total_Sueldo_B Total de horas del sueldo base
+ * @apiSuccess {Date} Fecha Fecha de la solicitud
+ * @apiSuccess {String} ES_Solicitud_N Estado de la solicitud
+ * 
+ * @apiSucessExample Solicitud exitosa:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "ID_Solicitud_N": 1,
+ *          "ID_A": 4,
+ *          "NumNomina": "124564",
+ *          "Total_Horas_T": 46,
+ *          "Total_Sueldo_B": 545,
+ *          "Sueldo_Total": 546,
+ *          "Fecha": "2022-01-01",
+ *          "ES_Solicitud_N": "En Proceso"
+ *      }
+ * @apiError Error al obtener información de la solicitud
+ *
+ * @apiErrorExample Error:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       mensaje:"No se encuentran resultados"
+ *     }
+ */
+
+//Desplegar un registro en especifico
+app.get('/solicitud-nomina/:ID_Solicitud_N', (req, res) => {
+  const { ID_Solicitud_N } = req.params;
+  const sql = `SELECT * FROM solicitudnomina WHERE ID_Solicitud_N = ${ID_Solicitud_N}`;
+  connection.query(sql, (error, result) => {
+    if (error) throw error;
+
+    if (result.length > 0) {
+      res.json(result);
+    } else {
+      res.send('No se encuentran resultados');
+    }
   });
 });
 
@@ -214,33 +285,41 @@ app.delete('/solicitud-nomina/eliminar/:ID_Solicitud_N', (req, res) => {
 });
 
 //                                         -----Solicitud de Recursos-----
-// Desplegar todos los registros de areas
-app.get('/solicitud-recursos', (req, res) => {
-  const sql = 'SELECT * FROM solicitudrecursos';
-
-  connection.query(sql, (error, results) => {
-    if (error) throw error;
-    if (results.length > 0) {
-      res.json(results);
-    } else {
-      res.send('No hay resultado');
-    }
-  });
-});
-//Desplegar un registro en especifico
-app.get('/solicitud-recursos/:ID_Solicitud_R', (req, res) => {
-  const { ID_Solicitud_R } = req.params;
-  const sql = `SELECT * FROM solicitudrecursos WHERE ID_Solicitud_R = ${ID_Solicitud_R}`;
-  connection.query(sql, (error, result) => {
-    if (error) throw error;
-
-    if (result.length > 0) {
-      res.json(result);
-    } else {
-      res.send('No se encuentran resultados');
-    }
-  });
-});
+/**
+ * @api {post} https://deerland-finanzas.herokuapp.com/solicitud-recursos/agregar Registro de Solicitudes de Recursos
+ * @apiName PostSolicitudRecursos
+ * @apiGroup Proveedores
+ * 
+ * @apiParam {String} NombreArea Nombre del area deerland
+ * @apiParam {String} NombreProveedor Nombre del proveedor
+ * @apiParam {Number} Subtotal Subtotal de la compra
+ * @apiParam {Number} IVA IVA de la compra
+ * @apiParam {Number} Total Total de la compra
+ * @apiParam {String} Firma Firma del solicitante
+ * 
+ * @apiParamExample Ejemplo:
+ * {
+ *  "NombreArea": "Tienda",
+ *  "NombreProveedor": "Abcd",
+ *  "Subtotal": 23,
+ *  "IVA": 32,
+ *  "Total": 23,
+ *  "Firma": "ND"
+ * }
+ * 
+ * @apiSucessExample Solicitud exitosa:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          status: "Solicitud enviada correctamente."
+ *      }
+ * @apiError Error al registrar una solicitud
+ *
+ * @apiErrorExample Error:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       mensaje:"No hay resultado"
+ *     }
+ */
 //Añadir registro
 app.post('/solicitud-recursos/agregar', (req, res) => {
   const sql = 'INSERT INTO solicitudrecursos SET ?';
@@ -248,8 +327,6 @@ app.post('/solicitud-recursos/agregar', (req, res) => {
   const RecursosObj = {
     NombreArea: req.body.NombreArea,
     NombreProveedor: req.body.NombreProveedor,
-    //CArticulo: req.body.CArticulo,
-    //DArticulo: req.body.DArticulo,
     Subtotal: req.body.Subtotal,
     IVA: req.body.IVA,
     Total: req.body.Total,
@@ -282,6 +359,70 @@ app.post('/solicitud-recursos/agregar', (req, res) => {
   });
   });
 });
+// Desplegar todos los registros de areas
+app.get('/solicitud-recursos', (req, res) => {
+  const sql = 'SELECT * FROM solicitudrecursos';
+
+  connection.query(sql, (error, results) => {
+    if (error) throw error;
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.send('No hay resultado');
+    }
+  });
+});
+/**
+ * @api {get} https://deerland-finanzas.herokuapp.com/solicitud-recursos/:ID_Solicitud_R Información sobre el estado una solicitud
+ * @apiName GetEstadoDeSolicitudRecursos
+ * @apiGroup Proveedores
+ * 
+ * @apiSuccess {Number} ID_Solicitud_R Id de la Solicitud
+ * @apiSuccess {Number} ID_A ID del area deerland
+ * @apiSuccess {String} Nombre_P Nombre del proveedor
+ * @apiSuccess {Number} Subtotal Subtotal de la compra
+ * @apiSuccess {Number} IVA IVA de la compra
+ * @apiSuccess {Number} Total_C Total de la compra
+ * @apiSuccess {Date} Fecha Fecha de la solicitud
+ * @apiSuccess {String} ES_Solicitud_R Estado de la solicitud
+ * @apiSuccess {String} Ajuste Se realizo un ajuste con la solicitud o no
+ * 
+ * @apiSucessExample Solicitud exitosa:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "ID_Solicitud_R": 1, 
+ *          "ID_A": 14,
+ *          "Nombre_P": "",
+ *          "Subtotal": 456,
+ *          "IVA": 54,
+ *          "Total_C": 65,
+ *          "Fecha": "2022-01-01T00:00:00.000Z",
+ *          "ES_Solicitud_R": "En Proceso",
+ *          "Ajuste": "No"
+ *      }
+ * @apiError Error Al obtener información de la solicitud
+ *
+ * @apiErrorExample Error:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       mensaje:"No se encuentran resultados"
+ *     }
+ */
+//Desplegar un registro en especifico
+app.get('/solicitud-recursos/:ID_Solicitud_R', (req, res) => {
+  const { ID_Solicitud_R } = req.params;
+  const sql = `SELECT * FROM solicitudrecursos WHERE ID_Solicitud_R = ${ID_Solicitud_R}`;
+  connection.query(sql, (error, result) => {
+    if (error) throw error;
+
+    if (result.length > 0) {
+      res.json(result);
+    } else {
+      res.send('No se encuentran resultados');
+    }
+  });
+});
+
 //Editar Solicitud
 app.put('/solicitud-recursos/editar/:ID_Solicitud_R', (req, res) => {
   const { ID_Solicitud_R } = req.params;
@@ -304,7 +445,6 @@ app.delete('/solicitud-recursos/eliminar/:ID_Solicitud_R', (req, res) => {
   });
 });
 
-
 // Check connect
 connection.connect(error => {
   if (error) throw error;
@@ -318,3 +458,4 @@ app.set('port', (process.env.PORT || 5000));
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
+
