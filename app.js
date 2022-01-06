@@ -159,6 +159,7 @@ app.post('/solicitud-nomina/agregar', (req, res) => {
     res.send('Solicitud enviada con exito!');
   });
 });
+
 //Editar Solicitud
 app.put('/solicitud-nomina/editar/:ID_Solicitud_N', (req, res) => {
   const { ID_Solicitud_N } = req.params;
