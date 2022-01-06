@@ -411,6 +411,7 @@ app.get('/solicitud-recursos', (req, res) => {
 //Desplegar un registro en especifico
 app.get('/solicitud-recursos/:ID_Solicitud_R', (req, res) => {
   const { ID_Solicitud_R } = req.params;
+  if(ID_Solicitud_R < 0) throw error;
   const sql = `SELECT * FROM solicitudrecursos WHERE ID_Solicitud_R = ${ID_Solicitud_R}`;
   connection.query(sql, (error, result) => {
     if (error) throw error;
