@@ -73,7 +73,7 @@ app.get('/areasdeerland/:ID_A', (req, res) => {
   });
     
   }else{
-    res.json('Error, valores no validos.');
+    res.json('Error, valores no validos. Si desea buscar algun registro de solicitud el formato es: https://deerland-finanzas.herokuapp.com/areasdeerland/ID_de_la_solicitud');
   }
   
 });
@@ -94,12 +94,11 @@ app.get('/areasdeerland/ultimo', (req, res) => {
 //Añadir registro
 app.post('/areasdeerland/agregar', (req, res) => {
   
-  const sql = 'INSERT INTO areasdeerland SET ?';
-
   const AreaObj = {
     Nombre_A: req.body.Nombre_A
   };
 
+  const sql = 'INSERT INTO areasdeerland SET ?';
   connection.query(sql, AreaObj, error => {
     if (error) throw error;
     const sql2 = 'SELECT * FROM areasdeerland ORDER BY ID_A DESC LIMIT 1';
@@ -199,7 +198,7 @@ app.post('/solicitud-nomina/agregar', (req, res) => {
     connection.query(sql2, (error, results) => {
     if (error) throw error;
     if (results.length > 0) {
-      res.json('Solicitud enviada correctamente. '+results);
+      res.json(results);
     } else {
       res.send('No hay resultado');
     }
@@ -268,7 +267,7 @@ app.get('/solicitud-nomina/:ID_Solicitud_N', (req, res) => {
     }
     });
   }else{
-    res.json('Error, valores no validos.');
+    res.json('Error, valores no validos. Si desea buscar algun registro de solicitud el formato es: https://deerland-finanzas.herokuapp.com/solicitud_nomina/ID_de_la_solicitud');
   }
   
 });
@@ -434,7 +433,7 @@ app.get('/solicitud-recursos/:ID_Solicitud_R', (req, res) => {
     }
     });
   }else{
-    res.json('Error, valores no validos.');
+    res.json('Error, valores no validos. Si desea buscar algun registro de solicitud el formato es: https://deerland-finanzas.herokuapp.com/solicitud_recursos/ID_de_la_solicitud');
   }
   
 });
