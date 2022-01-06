@@ -217,8 +217,8 @@ app.post('/solicitud-recursos/agregar', (req, res) => {
   const RecursosObj = {
     NombreArea: req.body.NombreArea,
     NombreProveedor: req.body.NombreProveedor,
-    CArticulo: req.body.CArticulo,
-    DArticulo: req.body.DArticulo,
+    //CArticulo: req.body.CArticulo,
+    //DArticulo: req.body.DArticulo,
     Subtotal: req.body.Subtotal,
     IVA: req.body.IVA,
     Total: req.body.Total,
@@ -228,7 +228,7 @@ app.post('/solicitud-recursos/agregar', (req, res) => {
 //Objeto con los datos a añadir a la BD
   const SolicitudRecObj = {
     ID_A: 14,
-    Cantidad_A: RecursosObj.CArticulo,
+    Nombre_P: RecursosObj.NombreProveedor,
     Subtotal: RecursosObj.Subtotal,
     IVA: RecursosObj.IVA,
     Total_C: RecursosObj.Total,
