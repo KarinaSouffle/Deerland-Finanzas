@@ -67,8 +67,23 @@ app.get('/areasdeerland/:ID_A', (req, res) => {
     }
   });
 });
+//Desplegar ultimo registro
+app.get('/areasdeerland/ultimo', (req, res) => {
+  const sql = 'SELECT MAX(ID_A) AS ID_A, Nombre_A FROM areasdeerland';
+
+  connection.query(sql, (error, results) => {
+    if (error) throw error;
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.send('No hay resultado');
+    }
+  });
+
+});
 //Añadir registro
 app.post('/areasdeerland/agregar', (req, res) => {
+  
   const sql = 'INSERT INTO areasdeerland SET ?';
 
   const AreaObj = {
@@ -77,7 +92,15 @@ app.post('/areasdeerland/agregar', (req, res) => {
 
   connection.query(sql, AreaObj, error => {
     if (error) throw error;
-    res.send('Area agregada con exito!');
+    const sql2 = 'SELECT * FROM areasdeerland ORDER BY ID_A DESC LIMIT 1';
+    connection.query(sql2, (error, results) => {
+    if (error) throw error;
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.send('No hay resultado');
+    }
+  });
   });
 });
 //Editar area
@@ -156,7 +179,15 @@ app.post('/solicitud-nomina/agregar', (req, res) => {
 
   connection.query(sql, SolicitudNomObj, error => {
     if (error) throw error;
-    res.send('Solicitud enviada con exito!');
+    const sql2 = 'SELECT * FROM solicitudnomina ORDER BY ID_Solicitud_N DESC LIMIT 1';
+    connection.query(sql2, (error, results) => {
+    if (error) throw error;
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.send('No hay resultado');
+    }
+  });
   });
 });
 
@@ -240,7 +271,15 @@ app.post('/solicitud-recursos/agregar', (req, res) => {
 
   connection.query(sql, SolicitudRecObj, error => {
     if (error) throw error;
-    res.send('Solicitud enviada con exito!');
+    const sql2 = 'SELECT * FROM solicitudrecursos ORDER BY ID_Solicitud_R DESC LIMIT 1';
+    connection.query(sql2, (error, results) => {
+    if (error) throw error;
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.send('No hay resultado');
+    }
+  });
   });
 });
 //Editar Solicitud
