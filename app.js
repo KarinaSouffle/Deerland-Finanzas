@@ -231,6 +231,10 @@ app.get('/solicitud-nomina', (req, res) => {
  * @apiSuccess {Date} Fecha Fecha de la solicitud
  * @apiSuccess {String} ES_Solicitud_N Estado de la solicitud
  * 
+ * @apiParamExample Ejemplo:{
+ *    https://deerland-finanzas.herokuapp.com/solicitud-nomina/2
+ * }
+ * 
  * @apiSucessExample Solicitud exitosa:
  *      HTTP/1.1 200 OK
  *      {
@@ -396,6 +400,10 @@ app.get('/solicitud-recursos', (req, res) => {
  * @apiSuccess {Date} Fecha Fecha de la solicitud
  * @apiSuccess {String} ES_Solicitud_R Estado de la solicitud
  * @apiSuccess {String} Ajuste Se realizo un ajuste con la solicitud o no
+ * 
+ * @apiParamExample Ejemplo:{
+ *    https://deerland-finanzas.herokuapp.com/solicitud-recursos/2
+ * }
  * 
  * @apiSucessExample Solicitud exitosa:
  *      HTTP/1.1 200 OK
