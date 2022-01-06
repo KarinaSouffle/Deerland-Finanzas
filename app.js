@@ -130,7 +130,6 @@ app.get('/solicitud-nomina/:ID_Solicitud_N', (req, res) => {
     }
   });
 });
-
 //Añadir registro
 app.post('/solicitud-nomina/agregar', (req, res) => {
   const sql = 'INSERT INTO solicitudnomina SET ?';
