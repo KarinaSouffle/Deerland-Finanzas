@@ -4,6 +4,19 @@
 
 const express = require('express');
 const mysql = require('mysql');
+const cors = require("cors");
+
+const bodyParser = require('body-parser');
+
+const PORT = process.env.PORT || 3050;
+
+const app = express();
+
+app.use(bodyParser.json());
+//app.use(cors());
+app.use(cors({
+  origin: "*"  
+}));
 
 //Fechas
 var today = new Date();
@@ -18,14 +31,6 @@ if (mm < 10){
 }
 today = yyyy + '-' + mm + '-' + dd;
 //console.log(today);
-
-const bodyParser = require('body-parser');
-
-const PORT = process.env.PORT || 3050;
-
-const app = express();
-
-app.use(bodyParser.json());
 
 // MySql
 const connection = mysql.createConnection({
