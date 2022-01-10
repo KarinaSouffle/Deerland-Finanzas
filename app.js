@@ -473,6 +473,186 @@ app.delete('/solicitud-recursos/eliminar/:ID_Solicitud_R', (req, res) => {
   });
 });
 
+//                                         -----Transacciones con Banco-----
+// Desplegar todos los registros de transacciones
+app.get('/transaccion', (req, res) => {
+  const sql = 'SELECT * FROM transaccion';
+
+  connection.query(sql, (error, results) => {
+    if (error) throw error;
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.send('No hay resultado');
+    }
+  });
+});
+//Desplegar una transaccion en especifico
+app.get('/transaccion/:Transaction_num', (req, res) => {
+  const { Transaction_num } = req.params;
+  if(!isNaN(Transaction_num)){
+    const sql = `SELECT * FROM transaccion WHERE Transaction_num = ${Transaction_num}`;
+  connection.query(sql, (error, result) => {
+    if (error) throw error;
+
+    if (result.length > 0) {
+      res.json(result);
+    } else {
+      res.send('No se encuentran resultados');
+    }
+  });
+    
+  }else{
+    res.json('Error, valores no validos. Si desea buscar algun registro de solicitud el formato es: https://deerland-finanzas.herokuapp.com/areasdeerland/ID_de_la_solicitud');
+  }
+  
+});
+//Desplegar ultimo registro
+app.get('/transaccion/ultimo', (req, res) => {
+  const sql = 'SELECT MAX(Transaction_num) AS Transaction_num, Fecha, Recibo, Origen, Destino, Estatus, Monto FROM transaccion';
+
+  connection.query(sql, (error, results) => {
+    if (error) throw error;
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.send('No hay resultado');
+    }
+  });
+
+});
+//Añadir registro
+app.post('/transaccion/agregar', (req, res) => {
+  
+  const TransaccionObj = {
+    Nombre_A: req.body.Nombre_A,
+    Fecha: req.body.Fecha,
+    Recibo: req.body.Recibo,
+    Origen: req.body.Origen,
+    Destino: req.body.Destino,
+    Estatus: req.body.Estatus,
+    Monto: req.body.Monto
+  };
+
+  const sql = 'INSERT INTO transaccion SET ?';
+  connection.query(sql, TransaccionObj, error => {
+    if (error) throw error;
+    const sql2 = 'SELECT * FROM transaccion ORDER BY Transaction_num DESC LIMIT 1';
+    connection.query(sql2, (error, results) => {
+    if (error) throw error;
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.send('No hay resultado');
+    }
+  });
+  });
+});
+//Eliminar una transaccion
+app.delete('/transaccion/eliminar/:Transaction_num', (req, res) => {
+  const { Transaction_num } = req.params;
+  const sql = `DELETE FROM transaccion WHERE Transaction_num= ${Transaction_num}`;
+
+  connection.query(sql, error => {
+    if (error) throw error;
+    res.send('Transaccion eliminada');
+  });
+});
+
+//                                         -----Usuarios Finanzas-----
+// Desplegar todos los registros de usuarios
+app.get('/usuarios', (req, res) => {
+  const sql = 'SELECT * FROM usuarios';
+
+  connection.query(sql, (error, results) => {
+    if (error) throw error;
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.send('No hay resultado');
+    }
+  });
+});
+//Desplegar un registro en especifico
+app.get('/usuarios/:ID_U', (req, res) => {
+  const { ID_U } = req.params;
+  if(!isNaN(ID_U)){
+    const sql = `SELECT * FROM usuarios WHERE ID_U = ${ID_U}`;
+  connection.query(sql, (error, result) => {
+    if (error) throw error;
+
+    if (result.length > 0) {
+      res.json(result);
+    } else {
+      res.send('No se encuentran resultados');
+    }
+  });
+    
+  }else{
+    res.json('Error, valores no validos. Si desea buscar algun registro de solicitud el formato es: https://deerland-finanzas.herokuapp.com/areasdeerland/ID_de_la_solicitud');
+  }
+  
+});
+//Desplegar ultimo registro
+app.get('/usuarios/ultimo', (req, res) => {
+  const sql = 'SELECT MAX(ID_U) AS ID_U, Puesto, Usuario FROM usuarios';
+
+  connection.query(sql, (error, results) => {
+    if (error) throw error;
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.send('No hay resultado');
+    }
+  });
+
+});
+//Añadir registro
+app.post('/usuarios/agregar', (req, res) => {
+  
+  const UsuarioObj = {
+    Puesto: req.body.Puesto,
+    Usuario: req.body.Usuario,
+    Contraseña: req.body.Contraseña
+  };
+
+  const sql = 'INSERT INTO usuarios SET ?';
+  connection.query(sql, UsuarioObj, error => {
+    if (error) throw error;
+    const sql2 = 'SELECT * FROM usuarios ORDER BY ID_A DESC LIMIT 1';
+    connection.query(sql2, (error, results) => {
+    if (error) throw error;
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.send('No hay resultado');
+    }
+  });
+  });
+});
+//Editar usuarios
+app.put('/usuarios/editar/:ID_U', (req, res) => {
+  const { ID_U } = req.params;
+  const { Contraseña } = req.body;
+  const sql = `UPDATE usuarios SET Contraseña='${Contraseña}' WHERE ID_U =${ID_U}`;
+
+  connection.query(sql, error => {
+    if (error) throw error;
+    res.send('Area editada con exito!');
+  });
+});
+//Eliminar un usuarios
+app.delete('/usuarios/eliminar/:ID_U', (req, res) => {
+  const { ID_U } = req.params;
+  const sql = `DELETE FROM usuarios WHERE ID_U= ${ID_U}`;
+
+  connection.query(sql, error => {
+    if (error) throw error;
+    res.send('Usuario eliminado');
+  });
+});
+
+
 // Check connect
 connection.connect(error => {
   if (error) throw error;
