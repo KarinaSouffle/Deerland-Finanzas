@@ -553,7 +553,7 @@ app.get('/transaccion/ultimo', (req, res) => {
 app.post('/transaccion/agregar', (req, res) => {
   
   const TransaccionObj = {
-    transaction_num: req.body.transaction_num,
+    transaction_num: req.body.transaction_num+1,
     status: req.body.status,
     date: req.body.date,
     ammount: req.body.ammount,
@@ -593,12 +593,11 @@ app.post('/transaccion/prueba', (req, res) => {
   const SolicitudTransObj = {
     transaction_num: 2147483648,
     status: Completada,
-    date: Fecha,
+    date: TransObj.exp_date,
     ammount: TransObj.ammount,
     origin: TransObj.origin_account,
     destiny: TransObj.destiny_account,
     receipt: "asd"
-
   }
 
   connection.query(sql, SolicitudTransObj, error => {
