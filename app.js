@@ -592,12 +592,12 @@ app.post('/transaccion/prueba', (req, res) => {
 //Objeto con los datos a añadir a la BD
   const SolicitudTransObj = {
     transaction_num: 2147483648,
-    status: Completada,
+    status: 'Completada',
     date: TransObj.exp_date,
     ammount: TransObj.ammount,
     origin: TransObj.origin_account,
     destiny: TransObj.destiny_account,
-    receipt: "asd"
+    receipt: 'asd'
   }
 
   connection.query(sql, SolicitudTransObj, error => {
