@@ -553,19 +553,57 @@ app.get('/transaccion/ultimo', (req, res) => {
 app.post('/transaccion/agregar', (req, res) => {
   
   const TransaccionObj = {
-    Nombre_A: req.body.Nombre_A,
-    Fecha: req.body.Fecha,
-    Recibo: req.body.Recibo,
-    Origen: req.body.Origen,
-    Destino: req.body.Destino,
-    Estatus: req.body.Estatus,
-    Monto: req.body.Monto
+    transaction_num: req.body.transaction_num,
+    status: req.body.status,
+    date: req.body.date,
+    ammount: req.body.ammount,
+    origin: req.body.origin,
+    destiny: req.body.destiny,
+    receipt: req.body.receipt
   };
 
   const sql = 'INSERT INTO transaccion SET ?';
   connection.query(sql, TransaccionObj, error => {
     if (error) throw error;
     const sql2 = 'SELECT * FROM transaccion ORDER BY Transaction_num DESC LIMIT 1';
+    connection.query(sql2, (error, results) => {
+    if (error) throw error;
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.send('No hay resultado');
+    }
+  });
+  });
+});
+
+//Añadir registro prueba
+app.post('/transaccion/prueba', (req, res) => {
+  const sql = 'INSERT INTO transaccion SET ?';
+//Objeto con los datos recibidos
+  const TransObj = {
+    destiny_account: req.body.destiny_account,
+    origin_account: req.body.origin_account,
+    cvv: req.body.cvv,
+    exp_date: req.body.exp_date,
+    ammount: req.body.ammount
+
+  };
+//Objeto con los datos a añadir a la BD
+  const SolicitudTransObj = {
+    transaction_num: 2147483648,
+    status: Completada,
+    date: Fecha,
+    ammount: TransObj.ammount,
+    origin: TransObj.origin_account,
+    destiny: TransObj.destiny_account,
+    receipt: "asd"
+
+  }
+
+  connection.query(sql, SolicitudTransObj, error => {
+    if (error) throw error;
+    const sql2 = 'SELECT * FROM transacciones ORDER BY transaction_num DESC LIMIT 1';
     connection.query(sql2, (error, results) => {
     if (error) throw error;
     if (results.length > 0) {
