@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(cors({
   origin: "*"  
 }));
-
+app.options('*', cors());
 //Fechas
 var today = new Date();
 var dd = today.getDate();
