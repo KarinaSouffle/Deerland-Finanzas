@@ -282,7 +282,7 @@ app.get('/solicitud-nomina/:ID_Solicitud_N', (req, res) => {
 });
 
 //Desplegar solicitudes en proceso
-app.post('/solicitud-nomina/enproceso', (req, res) => {
+app.post('/solicitud-nomina/busqueda/enproceso', (req, res) => {
   const { ID_Solicitud_N } = req.params;
   if(!isNaN(ID_Solicitud_N)){
     const sql = `SELECT * FROM solicitudnomina WHERE ES_Solicitud_N = ${"En proceso"}`;
