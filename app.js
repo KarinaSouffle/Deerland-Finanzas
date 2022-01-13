@@ -6,7 +6,6 @@ const express = require('express');
 const mysql = require('mysql');
 const cors = require("cors");
 
-client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token 2de7ee32b45003ec7dfa2c4353bc98cd71ec254c", Authorization);
 
 const bodyParser = require('body-parser');
 
