@@ -602,7 +602,7 @@ app.post('/transaccion/prueba', (req, res) => {
 
   connection.query(sql, SolicitudTransObj, error => {
     if (error) throw error;
-    const sql2 = 'SELECT * FROM transacciones ORDER BY transaction_num DESC LIMIT 1';
+    const sql2 = 'SELECT * FROM transaccion ORDER BY transaction_num DESC LIMIT 1';
     connection.query(sql2, (error, results) => {
     if (error) throw error;
     if (results.length > 0) {
