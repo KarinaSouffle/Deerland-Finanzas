@@ -553,7 +553,7 @@ app.get('/transacciones/ultimo', (req, res) => {
 app.post('/transacciones/agregar', (req, res) => {
   
   const transaccionesObj = {
-    transaction_num: req.body.transaction_num+1,
+    transaction_num: req.body.transaction_num,
     status: req.body.status,
     date: req.body.date,
     ammount: req.body.ammount,
@@ -591,7 +591,7 @@ app.post('/transacciones/prueba', (req, res) => {
   };
 //Objeto con los datos a añadir a la BD
   const SolicitudTransObj = {
-    transaction_num: 439125,
+    transaction_num: 125,
     status: 'Completada',
     date: "2022-01-13",
     ammount: TransObj.ammount,
