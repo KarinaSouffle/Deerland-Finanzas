@@ -281,6 +281,26 @@ app.get('/solicitud-nomina/:ID_Solicitud_N', (req, res) => {
   
 });
 
+//Desplegar solicitudes en proceso
+app.post('/solicitud-nomina/enproceso', (req, res) => {
+  const { ID_Solicitud_N } = req.params;
+  if(!isNaN(ID_Solicitud_N)){
+    const sql = `SELECT * FROM solicitudnomina WHERE ES_Solicitud_N = ${"En proceso"}`;
+    connection.query(sql, (error, result) => {
+    if (error) throw error;
+
+    if (result.length > 0) {
+      res.json(result);
+    } else {
+      res.send('No se encuentran resultados');
+    }
+    });
+  }else{
+    res.json('Error, valores no validos. Si desea buscar algun registro de solicitud el formato es: https://deerland-finanzas.herokuapp.com/solicitud_nomina/ID_de_la_solicitud');
+  }
+  
+});
+
 //Editar Solicitud
 app.put('/solicitud-nomina/editar/:ID_Solicitud_N', (req, res) => {
   const { ID_Solicitud_N } = req.params;
