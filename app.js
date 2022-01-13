@@ -6,6 +6,8 @@ const express = require('express');
 const mysql = require('mysql');
 const cors = require("cors");
 
+client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token 2de7ee32b45003ec7dfa2c4353bc98cd71ec254c", Authorization);
+
 const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 3050;
@@ -553,7 +555,7 @@ app.get('/transacciones/ultimo', (req, res) => {
 app.post('/transacciones/agregar', (req, res) => {
   
   const transaccionesObj = {
-    transaction_num: 127,
+    transaction_num: req.body.transaction_num,
     status: req.body.status,
     date: req.body.date,
     ammount: req.body.ammount,
@@ -586,7 +588,8 @@ app.post('/transacciones/prueba', (req, res) => {
     origin_account: req.body.origin_account,
     cvv: req.body.cvv,
     exp_date: req.body.exp_date,
-    ammount: req.body.ammount
+    ammount: req.body.ammount,
+    concept: req.body.concept
 
   };
 //Objeto con los datos a añadir a la BD
