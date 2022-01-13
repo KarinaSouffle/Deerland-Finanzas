@@ -591,7 +591,7 @@ app.post('/transaccion/prueba', (req, res) => {
   };
 //Objeto con los datos a añadir a la BD
   const SolicitudTransObj = {
-    transaction_num: 2147483648,
+    transaction_num: 8947483648,
     status: 'Completada',
     date: Fecha,
     ammount: TransObj.ammount,
