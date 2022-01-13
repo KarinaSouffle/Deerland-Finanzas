@@ -465,6 +465,20 @@ app.get('/solicitud-recursos/:ID_Solicitud_R', (req, res) => {
   
 });
 
+//Desplegar solicitudes en proceso
+app.get('/recursosproceso', (req, res) => {
+  const sql = 'SELECT * FROM solicitudrecursos WHERE ES_Solicitud_R = "En proceso"';
+
+  connection.query(sql, (error, results) => {
+    if (error) throw error;
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.send('No hay resultado');
+    }
+  });
+});
+
 //Editar Solicitud
 app.put('/solicitud-recursos/editar/:ID_Solicitud_R', (req, res) => {
   const { ID_Solicitud_R } = req.params;
