@@ -593,7 +593,7 @@ app.post('/transaccion/prueba', (req, res) => {
   const SolicitudTransObj = {
     transaction_num: 2147483648,
     status: 'Completada',
-    date: Fecha,
+    date: Fecha+"",
     ammount: TransObj.ammount,
     origin: TransObj.origin_account,
     destiny: TransObj.destiny_account,
