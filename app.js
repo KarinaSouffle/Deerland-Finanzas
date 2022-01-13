@@ -194,7 +194,7 @@ app.post('/solicitud-nomina/agregar', (req, res) => {
     Total_Sueldo_B: NominaObj.SalarioBase,
     Sueldo_Total: NominaObj.SalarioT,
     Fecha: today,
-    ES_Solicitud_N: 'En proceso'
+    ES_Solicitud_N: 'Aprobado'
 
   }
 
@@ -375,7 +375,7 @@ app.post('/solicitud-recursos/agregar', (req, res) => {
     IVA: RecursosObj.IVA,
     Total_C: RecursosObj.Total,
     Fecha: today,
-    ES_Solicitud_R: 'En proceso',
+    ES_Solicitud_R: 'Aprobado',
     Ajuste: 'No'
 
   }
@@ -566,15 +566,7 @@ app.post('/transacciones/agregar', (req, res) => {
   const sql = 'INSERT INTO transacciones SET ?';
   connection.query(sql, transaccionesObj, error => {
     if (error) throw error;
-    const sql2 = 'SELECT * FROM transacciones ORDER BY Transaction_num DESC LIMIT 1';
-    connection.query(sql2, (error, results) => {
-    if (error) throw error;
-    if (results.length > 0) {
-      res.json(results);
-    } else {
-      res.send('No hay resultado');
-    }
-  });
+    res.send('transferencia guardada');
   });
 });
 
