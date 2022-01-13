@@ -282,7 +282,7 @@ app.get('/solicitud-nomina/:ID_Solicitud_N', (req, res) => {
 });
 
 //Desplegar solicitudes en proceso
-app.get('/solicitud-nomina', (req, res) => {
+app.get('/nominaproceso', (req, res) => {
   const sql = 'SELECT * FROM solicitudnomina WHERE ES_Solicitud_N = "En proceso"';
 
   connection.query(sql, (error, results) => {
