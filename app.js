@@ -501,10 +501,10 @@ app.delete('/solicitud-recursos/eliminar/:ID_Solicitud_R', (req, res) => {
   });
 });
 
-//                                         -----Transacciones con Banco-----
-// Desplegar todos los registros de transacciones
-app.get('/transaccion', (req, res) => {
-  const sql = 'SELECT * FROM transaccion';
+//                                         -----transaccioneses con Banco-----
+// Desplegar todos los registros de transaccioneses
+app.get('/transacciones', (req, res) => {
+  const sql = 'SELECT * FROM transacciones';
 
   connection.query(sql, (error, results) => {
     if (error) throw error;
@@ -515,11 +515,11 @@ app.get('/transaccion', (req, res) => {
     }
   });
 });
-//Desplegar una transaccion en especifico
-app.get('/transaccion/:Transaction_num', (req, res) => {
+//Desplegar una transacciones en especifico
+app.get('/transacciones/:Transaction_num', (req, res) => {
   const { Transaction_num } = req.params;
   if(!isNaN(Transaction_num)){
-    const sql = `SELECT * FROM transaccion WHERE Transaction_num = ${Transaction_num}`;
+    const sql = `SELECT * FROM transacciones WHERE Transaction_num = ${Transaction_num}`;
   connection.query(sql, (error, result) => {
     if (error) throw error;
 
@@ -536,8 +536,8 @@ app.get('/transaccion/:Transaction_num', (req, res) => {
   
 });
 //Desplegar ultimo registro
-app.get('/transaccion/ultimo', (req, res) => {
-  const sql = 'SELECT MAX(Transaction_num) AS Transaction_num, Fecha, Recibo, Origen, Destino, Estatus, Monto FROM transaccion';
+app.get('/transacciones/ultimo', (req, res) => {
+  const sql = 'SELECT MAX(Transaction_num) AS Transaction_num, Fecha, Recibo, Origen, Destino, Estatus, Monto FROM transacciones';
 
   connection.query(sql, (error, results) => {
     if (error) throw error;
@@ -550,9 +550,9 @@ app.get('/transaccion/ultimo', (req, res) => {
 
 });
 //Añadir registro
-app.post('/transaccion/agregar', (req, res) => {
+app.post('/transacciones/agregar', (req, res) => {
   
-  const TransaccionObj = {
+  const transaccionesObj = {
     transaction_num: req.body.transaction_num+1,
     status: req.body.status,
     date: req.body.date,
@@ -562,10 +562,10 @@ app.post('/transaccion/agregar', (req, res) => {
     receipt: req.body.receipt
   };
 
-  const sql = 'INSERT INTO transaccion SET ?';
-  connection.query(sql, TransaccionObj, error => {
+  const sql = 'INSERT INTO transacciones SET ?';
+  connection.query(sql, transaccionesObj, error => {
     if (error) throw error;
-    const sql2 = 'SELECT * FROM transaccion ORDER BY Transaction_num DESC LIMIT 1';
+    const sql2 = 'SELECT * FROM transacciones ORDER BY Transaction_num DESC LIMIT 1';
     connection.query(sql2, (error, results) => {
     if (error) throw error;
     if (results.length > 0) {
@@ -578,8 +578,8 @@ app.post('/transaccion/agregar', (req, res) => {
 });
 
 //Añadir registro prueba
-app.post('/transaccion/prueba', (req, res) => {
-  const sql = 'INSERT INTO transaccion SET ?';
+app.post('/transacciones/prueba', (req, res) => {
+  const sql = 'INSERT INTO transacciones SET ?';
 //Objeto con los datos recibidos
   const TransObj = {
     destiny_account: req.body.destiny_account,
@@ -591,7 +591,7 @@ app.post('/transaccion/prueba', (req, res) => {
   };
 //Objeto con los datos a añadir a la BD
   const SolicitudTransObj = {
-    transaction_num: 8947483648,
+    transaction_num: 12356,
     status: 'Completada',
     date: today,
     ammount: TransObj.ammount,
@@ -602,7 +602,7 @@ app.post('/transaccion/prueba', (req, res) => {
 
   connection.query(sql, SolicitudTransObj, error => {
     if (error) throw error;
-    const sql2 = 'SELECT * FROM transaccion ORDER BY transaction_num DESC LIMIT 1';
+    const sql2 = 'SELECT * FROM transacciones ORDER BY transaction_num DESC LIMIT 1';
     connection.query(sql2, (error, results) => {
     if (error) throw error;
     if (results.length > 0) {
@@ -613,14 +613,14 @@ app.post('/transaccion/prueba', (req, res) => {
   });
   });
 });
-//Eliminar una transaccion
-app.delete('/transaccion/eliminar/:Transaction_num', (req, res) => {
+//Eliminar una transacciones
+app.delete('/transacciones/eliminar/:Transaction_num', (req, res) => {
   const { Transaction_num } = req.params;
-  const sql = `DELETE FROM transaccion WHERE Transaction_num= ${Transaction_num}`;
+  const sql = `DELETE FROM transacciones WHERE Transaction_num= ${Transaction_num}`;
 
   connection.query(sql, error => {
     if (error) throw error;
-    res.send('Transaccion eliminada');
+    res.send('transacciones eliminada');
   });
 });
 
