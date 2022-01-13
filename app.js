@@ -553,7 +553,7 @@ app.get('/transacciones/ultimo', (req, res) => {
 app.post('/transacciones/agregar', (req, res) => {
   
   const transaccionesObj = {
-    transaction_num: req.body.transaction_num+1,
+    transaction_num: 12,
     status: req.body.status,
     date: req.body.date,
     ammount: req.body.ammount,
