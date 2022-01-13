@@ -593,7 +593,7 @@ app.post('/transacciones/prueba', (req, res) => {
   const SolicitudTransObj = {
     transaction_num: 12356,
     status: 'Completada',
-    date: today,
+    date: "2022-01-13",
     ammount: TransObj.ammount,
     origin: TransObj.origin_account,
     destiny: TransObj.destiny_account,
