@@ -193,7 +193,7 @@ app.post('/solicitud-nomina/agregar', (req, res) => {
     Total_Horas_T: NominaObj.HorasE,
     Total_Sueldo_B: NominaObj.SalarioBase,
     Sueldo_Total: NominaObj.SalarioT,
-    Fecha: today,
+    Fecha: NominaObj.FechaPago,
     ES_Solicitud_N: 'Aprobado'
 
   }
