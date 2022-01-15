@@ -194,7 +194,7 @@ app.post('/solicitud-nomina/agregar', (req, res) => {
     Total_Sueldo_B: NominaObj.SalarioBase,
     Sueldo_Total: NominaObj.SalarioT,
     Fecha: NominaObj.FechaPago,
-    ES_Solicitud_N: 'Aprobado'
+    ES_Solicitud_N: 'En Proceso'
 
   }
 
@@ -375,7 +375,7 @@ app.post('/solicitud-recursos/agregar', (req, res) => {
     IVA: RecursosObj.IVA,
     Total_C: RecursosObj.Total,
     Fecha: today,
-    ES_Solicitud_R: 'Aprobado',
+    ES_Solicitud_R: 'En Proceso',
     Ajuste: 'No'
 
   }
